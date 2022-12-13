@@ -215,6 +215,9 @@ async fn main() {
     let event = match action {
         GOCAction::GetDnsMeta => unsafe { GOCEvent::DnsMeta(DNS_META.clone()) },
         GOCAction::SetDnsMeta(meta) => unsafe {
+            if contract.admin != msg::source() {
+                panic!("Dns metadata can be added only by admin")
+            }
             DNS_META = Some(meta);
             GOCEvent::DnsMeta(DNS_META.clone())
         },
