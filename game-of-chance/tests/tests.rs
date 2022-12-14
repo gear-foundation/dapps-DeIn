@@ -25,7 +25,7 @@ fn two_rounds_and_meta_state() {
         players: BTreeSet::new(),
         prize_fund: 0,
         participation_cost: 0,
-        winner,
+        winner: admin,
         ft_actor_id: None,
     });
 
@@ -38,6 +38,7 @@ fn two_rounds_and_meta_state() {
     let mut started = system.block_timestamp();
     let mut ending = started + DURATION;
     let mut ft_actor_id = Some(sft.actor_id());
+    let winner = ActorId::zero();
 
     goc.start(ADMIN, DURATION, PARTICIPATION_COST, ft_actor_id)
         .contains((ending, PARTICIPATION_COST, ft_actor_id));
@@ -193,7 +194,7 @@ fn two_rounds_and_meta_state() {
     assert_eq!(system.balance_of(winner), PARTICIPATION_COST * 2 + AMOUNT);
     goc.meta_state().state().eq(GOCState {
         admin,
-        started: 0,
+        started,
         ending,
         players: BTreeSet::from([PLAYERS[0].into(), PLAYERS[1].into(), PLAYERS[2].into()]),
         prize_fund: PARTICIPATION_COST * 3,
