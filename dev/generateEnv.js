@@ -9,7 +9,7 @@ const programId = process.env.PROGRAM_ID;
 
 assert.notStrictEqual(pathToEnv, undefined, 'Path to .env is not specified');
 assert.notStrictEqual(pathToMeta, undefined, 'Path to .meta.wasm is not specified');
-assert.notStrictEqual(programId, undefined, 'Path to .meta.wasm is not specified');
+assert.notStrictEqual(programId, undefined, 'Program id is not specified');
 
 const main = async () => {
   const wasm = readFileSync(pathToMeta);

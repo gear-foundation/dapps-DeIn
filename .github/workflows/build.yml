@@ -69,16 +69,14 @@ jobs:
         with:
           cmd: install
 
-      - name: echo env
-        run: echo $PATH1
-        env:
-          PATH1: 'mypass'
-
       - name: Generate dns env file
-        run: PATH_TO_META=./target/wasm32-unknown-unknown/release/dns.meta.wasm PROGRAM_ID=${{ secrets.DNS_PROGRAM_ID }} sudo yarn env:dns
+        run: node dev/generateEnv.js dns-frontend/.env
+        env:
+          PATH_TO_META: ./target/wasm32-unknown-unknown/release/dns.meta.wasm
+          PROGRAM_ID: ${{ secrets.DNS_PROGRAM_ID }}
 
       - name: Generate goc env file
-        run: sudo yarn env:goc
+        run: node dev/generateEnv.js goc-frontend/.env
         env:
           PATH_TO_META: ./target/wasm32-unknown-unknown/release/game_of_chance.meta.wasm
           PROGRAM_ID: ${{ secrets.GOC_PROGRAM_ID }}
