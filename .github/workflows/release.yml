@@ -70,18 +70,6 @@ jobs:
         with:
           path: ./target/wasm32-unknown-unknown/release/*.wasm
 
-  build-frontend:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Cancel previous workflow runs
-        uses: styfle/cancel-workflow-action@0.4.0
-        with:
-          access_token: ${{ github.token }}
-
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
@@ -93,19 +81,16 @@ jobs:
         with:
           cmd: install
 
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-
       - name: Generate dns env file
-        run: sudo yarn env:dns
+        run: node dev/generateEnv.js dns-frontend/.env
         env:
-          PATH_TO_META: artifact/dns.meta.wasm
+          PATH_TO_META: ./target/wasm32-unknown-unknown/release/dns.meta.wasm
           PROGRAM_ID: ${{ secrets.DNS_PROGRAM_ID }}
 
       - name: Generate goc env file
-        run: sudo yarn env:goc
+        run: node dev/generateEnv.js goc-frontend/.env
         env:
-          PATH_TO_META: artifact/goc.meta.wasm
+          PATH_TO_META: ./target/wasm32-unknown-unknown/release/game_of_chance.meta.wasm
           PROGRAM_ID: ${{ secrets.GOC_PROGRAM_ID }}
 
       - name: Build frontend
