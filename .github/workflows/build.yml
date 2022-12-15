@@ -85,6 +85,11 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
 
+      - name: Test path
+        run: |
+          ls -a
+          ls artifact
+
       - name: Generate dns env file
         run: sudo yarn env:dns
         env:
