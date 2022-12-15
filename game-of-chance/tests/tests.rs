@@ -192,6 +192,7 @@ fn two_rounds_and_meta_state() {
     goc.pick_winner(ADMIN).contains(winner.into());
     system.claim_value_from_mailbox(winner);
     assert_eq!(system.balance_of(winner), PARTICIPATION_COST * 2 + AMOUNT);
+    let started = 0;
     goc.meta_state().state().eq(GOCState {
         admin,
         started,
