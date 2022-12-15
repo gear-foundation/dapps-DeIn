@@ -70,10 +70,7 @@ jobs:
           cmd: install
 
       - name: Generate dns env file
-        run: sudo yarn env:dns
-        env:
-          PATH_TO_META: ./target/wasm32-unknown-unknown/release/dns.meta.wasm
-          PROGRAM_ID: ${{ secrets.DNS_PROGRAM_ID }}
+        run: PATH_TO_META=./target/wasm32-unknown-unknown/release/dns.meta.wasm PROGRAM_ID=${{ secrets.DNS_PROGRAM_ID }} sudo yarn env:dns
 
       - name: Generate goc env file
         run: sudo yarn env:goc

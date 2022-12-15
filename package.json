@@ -6,8 +6,8 @@
     "build:dns": "yarn workspace dns run build",
     "build:goc": "yarn workspace goc run build",
     "build:all": "yarn workspaces foreach -ptR --from '{dns,goc}' run build",
-    "env:goc": "PATH_TO_META=target/wasm32-unknown-unknown/release/game_of_chance.meta.wasm node dev/generateEnv.js goc-frontend/.env",
-    "env:dns": "PATH_TO_META=target/wasm32-unknown-unknown/release/dns.meta.wasm node dev/generateEnv.js dns-frontend/.env"
+    "env:goc": "node dev/generateEnv.js goc-frontend/.env",
+    "env:dns": "node dev/generateEnv.js dns-frontend/.env"
   },
   "workspaces": [
     "dns-frontend",
