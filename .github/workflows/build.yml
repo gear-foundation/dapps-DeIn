@@ -65,7 +65,9 @@ jobs:
           node-version: 18.x
 
       - name: Install dependencies
-        run: yarn install
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install
 
       - name: Build frontend
         run: yarn build:all
