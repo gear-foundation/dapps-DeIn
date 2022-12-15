@@ -81,7 +81,7 @@ jobs:
           cmd: install
 
       - name: Build frontend
-        run: yarn build:all
+        run: sudo yarn build:all
 
       - name: Upload artifacts
         if: github.event_name == 'push'
