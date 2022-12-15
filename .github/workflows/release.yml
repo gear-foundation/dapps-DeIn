@@ -64,10 +64,60 @@ jobs:
             fi
             mv "$WASM" "$NAME-${{ needs.prepare.outputs.version }}.$EXT"
           done
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           path: ./target/wasm32-unknown-unknown/release/*.wasm
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Cancel previous workflow runs
+        uses: styfle/cancel-workflow-action@0.4.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install dependencies
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Generate dns env file
+        run: sudo yarn env:dns
+        env:
+          PATH_TO_META: artifact/dns.meta.wasm
+          PROGRAM_ID: ${{ secrets.DNS_PROGRAM_ID }}
+
+      - name: Generate goc env file
+        run: sudo yarn env:goc
+        env:
+          PATH_TO_META: artifact/goc.meta.wasm
+          PROGRAM_ID: ${{ secrets.GOC_PROGRAM_ID }}
+
+      - name: Build frontend
+        run: sudo yarn build:all
+
+      - name: Upload artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v3
+        with:
+          path: |
+            ./dns-frontend/build/dns.html
+            ./goc-frontend/build/goc.html
 
   publish:
     name: Publish binaries
@@ -84,4 +134,3 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: artifact/*
-          body_path: CHANGELOG.md # TODO: Cut piece related to the current version only

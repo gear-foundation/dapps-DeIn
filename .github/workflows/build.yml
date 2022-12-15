@@ -60,6 +60,8 @@ jobs:
 
   build-frontend:
     runs-on: ubuntu-latest
+    needs: build
+
     steps:
       - name: Cancel previous workflow runs
         uses: styfle/cancel-workflow-action@0.4.0
@@ -79,6 +81,21 @@ jobs:
         uses: borales/actions-yarn@v3.0.0
         with:
           cmd: install
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Generate dns env file
+        run: sudo yarn env:dns
+        env:
+          PATH_TO_META: artifact/dns.meta.wasm
+          PROGRAM_ID: ${{ secrets.DNS_PROGRAM_ID }}
+
+      - name: Generate goc env file
+        run: sudo yarn env:goc
+        env:
+          PATH_TO_META: artifact/goc.meta.wasm
+          PROGRAM_ID: ${{ secrets.GOC_PROGRAM_ID }}
 
       - name: Build frontend
         run: sudo yarn build:all
