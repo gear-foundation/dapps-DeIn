@@ -24,6 +24,11 @@ One more thing that you need to do is to include the following enum variants
 - `DnsMeta(Option<DnsMeta>)` - it also has to be the first variant of the enum
 
 After your program will be uploaded on chain you need to build your frontend to a single html file and upload it to IPFS.
+
+1. Download and install IPFS Desktop - https://github.com/ipfs/ipfs-desktop
+2. Upload your built web app using 'Files' tab
+3. Get file link by pressing option dots button on file and choose 'Share link'
+
 The next step is to send Metadata to your program using `SetDnsMeta` enum variant. Where you need to set name, link (that is link to html file on IPFS) and description.
 
 To register your dapp in Dns you need to send message to Dns program. You can do it through idea.gear-tech.io find dns program and send message `Register` with the id of your program.
