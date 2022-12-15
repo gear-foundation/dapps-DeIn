@@ -1,7 +1,7 @@
 # DNS
 
-Dns program enable to register your program and its interface as DNS record.
-The program stores program ids and meta info of theirs interfaces (name, description and link).
+DNS program enable to register your program and its interface as a DNS record.
+The program stores program ids and meta info of their interfaces (name, description and link).
 
 ## Register
 
@@ -17,4 +17,4 @@ Or you can use `idea.gear-tech.io` to do it.
 
 ## Get dns records
 
-You can read state of the Dns program to get all records or filtered ones (by name, id, pattern).
+You can read the state of the Dns program to get all records or filtered ones (by name, id, pattern).
