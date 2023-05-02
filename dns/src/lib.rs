@@ -163,13 +163,3 @@ pub unsafe extern "C" fn meta_state() -> *mut [i32; 2] {
 
     util::to_leak_ptr(result.encode())
 }
-
-gstd::metadata! {
-    title: "DNS contract",
-    handle:
-        input: DnsAction,
-        output: DnsReply,
-    state:
-        input: QueryAction,
-        output: QueryResult,
-}
