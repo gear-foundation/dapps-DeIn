@@ -173,7 +173,7 @@ dependencies = [
 
 [[package]]
 name = "dns"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "dns-io",
  "gear-wasm-builder",
@@ -184,12 +184,22 @@ dependencies = [
 
 [[package]]
 name = "dns-io"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "gmeta",
  "gstd",
  "parity-scale-codec",
  "scale-info",
+]
+
+[[package]]
+name = "dns-state"
+version = "0.1.1"
+dependencies = [
+ "dns-io",
+ "gear-wasm-builder",
+ "gmeta",
+ "gstd",
 ]
 
 [[package]]
@@ -726,16 +736,6 @@ name = "str-buf"
 version = "2.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0873cb29201126440dcc78d0b1f5a13d917e78831778429a7920ca9c7f3dae1e"
-
-[[package]]
-name = "supply-chain-state"
-version = "0.1.0"
-dependencies = [
- "dns-io",
- "gear-wasm-builder",
- "gmeta",
- "gstd",
-]
 
 [[package]]
 name = "syn"
