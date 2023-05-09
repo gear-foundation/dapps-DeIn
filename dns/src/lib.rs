@@ -100,5 +100,5 @@ unsafe extern "C" fn state() {
 extern "C" fn metahash() {
     let metahash: [u8; 32] = include!("../.metahash");
 
-    reply(metahash).expect("failed to encode or reply from `metahash()`");
+    msg::reply(metahash, 0).expect("failed to encode or reply from `metahash()`");
 }
